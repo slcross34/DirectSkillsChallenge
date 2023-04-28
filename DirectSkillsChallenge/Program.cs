@@ -56,6 +56,15 @@ namespace DirectSkillsChallenge
             List<string> listOfSitesFromClass = new List<string>();
             Console.WriteLine("Third Pass");
             listOfSitesFromClass = urlClassTest.CaptureLinks();
+
+            LinkParserFromURLJSON urlClassTestJSON = new LinkParserFromURLJSON("https://dejobs.org/jobs/feed/json?num_items=10");
+            //List<string> listOfSitesFromClass = new List<string>();
+            Console.WriteLine("JSON Pass");
+            int response = urlClassTestJSON.CaptureLinks();
+
+
+
+
         }
 
         public static string ReverseOrder(string inValue) 

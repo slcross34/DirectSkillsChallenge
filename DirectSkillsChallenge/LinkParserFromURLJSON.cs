@@ -7,6 +7,9 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+
 
 namespace DirectSkillsChallenge
 {
@@ -19,7 +22,7 @@ namespace DirectSkillsChallenge
             this.IncomingURL = incomingURL;
         }
 
-        public List<string> CaptureLinks()
+        public int CaptureLinks()
         {
             List<string> links = new List<string>();
 
@@ -31,6 +34,13 @@ namespace DirectSkillsChallenge
                     {
                         using (HttpContent webContent = webDoc.Content)
                         {
+                            string webHtml = webContent.ReadAsStringAsync().Result;
+                            dynamic arrayOfFields = JsonConvert.DeserializeObject(webHtml);
+                            foreach (var webItem in arrayOfFields)
+                            {
+                                Console.WriteLine("guid: {0}, url: {1}", webItem.guid, webItem.url);
+                            
+                            }
 
                             //string webHtml = webContent.ReadAsStringAsync().Result;
                             ////Console.WriteLine(webHtml);
@@ -46,7 +56,7 @@ namespace DirectSkillsChallenge
                     }
                 }
             }
-            return links;
+            return 1;
         }
     }
 }
